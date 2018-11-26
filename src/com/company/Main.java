@@ -1,37 +1,38 @@
 package com.company;
 
+import java.sql.SQLOutput;
+
 public class Main {
     public static void main(String[] args) {
-        one(5);
-        two(60, 80, 6000, 30);
-        three(5, 8, 2);
+        one(5.5);
+        two(60.5, 80.5, 6000, 30);
+        three(5, 25, 113);
         four(-5);
         five(10, 20, 30);
-        fiveNew(10,20,30);
+        fiveNew(10, 20, 30);
         six(-7);
         seven(4, 8);
         eight(5, 6, 41);
         nine(2, 5, 2, 2);
         ten(9);
         eleven(7);
-        twelve(8);
-        thirteen(3, 8);
+        twelve(1, 3, 0);
+        thirteen(7, 3);
         fourteen(4, 8);
         fifteen(15);
         sixteen(100, 15);
         seventeen(17);
         eighteen(9876);
-        nineteen(5, 15);
+        nineteen(-5, -1);
     }
 
-    public static int one(int side) {
-
+    public static double one(double side) {
         System.out.println("one: " + side * side);
         return side * side;
     }
 
-    public static void two(int V1, int V2, int S, int T) {
-        int Distance = Math.abs(S - ((V1 + V2) * T));
+    public static void two(double V1, double V2, double S, double T) {
+        double Distance = Math.abs(S - ((V1 + V2) * T));
         System.out.println("two: " + Distance);
     }
 
@@ -41,9 +42,13 @@ public class Main {
             return;
         }
         int D = B * B - 4 * A * C;
-        double X1 = (-B + Math.sqrt(D)) / (2 * A);
-        double X2 = (-B - Math.sqrt(D)) / (2 * A);
-        System.out.println("three: " + X1 + " " + X2);
+        if (D < 0) {
+            System.out.println("three: 'D' can`t be below zero");
+        } else {
+            double X1 = (-B + Math.sqrt(D)) / (2 * A);
+            double X2 = (-B - Math.sqrt(D)) / (2 * A);
+            System.out.println("three: " + X1 + " " + X2);
+        }
     }
 
     public static void four(int T) {
@@ -54,9 +59,9 @@ public class Main {
         } else System.out.println("four: " + 10);
     }
 
-    public static void five(int a1, int a2, int a3) {
-        int max1 = 0;
-        int max2 = 0;
+    public static void five(double a1, double a2, double a3) {
+        double max1 = 0;
+        double max2 = 0;
         if (a1 > a2) {
             if (a1 > a3) {
                 max1 = a1;
@@ -83,34 +88,31 @@ public class Main {
             }
         }
         System.out.println("five: " + (max1 + max2));
-
     }
+    //Какой вариант пятого задания лучше? Или не имеет значения.
 
     public static void fiveNew(int a1, int a2, int a3) {
         int max1 = 0;
         int max2 = 0;
         if (a1 > a2 && a1 > a3) {
             max1 = a1;
-            if (a2 > a3){
+            if (a2 > a3) {
                 max2 = a2;
-            }
-            else {
+            } else {
                 max2 = a3;
             }
         } else if (a2 > a1 && a2 > a3) {
             max1 = a2;
-            if (a1 > a3){
+            if (a1 > a3) {
                 max2 = a1;
-            }
-            else{
+            } else {
                 max2 = a3;
             }
         } else {
             max1 = a3;
-            if (a1 > a2){
+            if (a1 > a2) {
                 max2 = a1;
-            }
-            else{
+            } else {
                 max2 = a2;
             }
         }
@@ -212,87 +214,120 @@ public class Main {
         System.out.println("eleven: " + Season);
     }
 
-    public static void twelve(int N) {
-        int A = 55;
-        int B = 33;
-        switch (N) {
-            case 1:
-                System.out.println("twelve: " + (A + B));
-                break;
-            case 2:
-                System.out.println("twelve: " + (A - B));
-                break;
-            case 3:
-                System.out.println("twelve: " + (A * B));
-                break;
-            case 4:
-                System.out.println("twelve: " + (A / B));
-                break;
-            default:
-                System.out.println("twelve: wrong data");
+    public static void twelve(int N, int A, int B) {
+        if (B == 0) {
+            System.out.println("twelwe: 'B' can`t be zero");
+        } else {
+            switch (N) {
+                case 1:
+                    System.out.println("twelve: " + (A + B));
+                    break;
+                case 2:
+                    System.out.println("twelve: " + (A - B));
+                    break;
+                case 3:
+                    System.out.println("twelve: " + (A * B));
+                    break;
+                case 4:
+                    System.out.println("twelve: " + (A / B));
+                    break;
+                default:
+                    System.out.println("twelve; 'N' can be only 1, 2, 3 or 4");
+            }
         }
     }
 
     public static void thirteen(int A, int B) {
         int count = 0;
-        System.out.print("thirteen: ");
-        for (int i = A; i <= B; i++) {
-            System.out.print(i + " ");
-            count++;
+        if (A < B) {
+            System.out.print("thirteen: ");
+            for (int i = A; i <= B; i++) {
+                System.out.print(i + " ");
+                count++;
+            }
+            System.out.print("\n");
+            System.out.println("thirteen: count is " + count);
+        } else {
+            System.out.println("thirteen: 'A' must be < than 'B'");
         }
-        System.out.print("\n");
-        System.out.println("thirteen: count is " + count);
     }
 
     public static void fourteen(int A, int B) {
         int Sum = 0;
-        for (int i = A; i <= B; i++) {
-            Sum += i;
+        if (A < B) {
+            for (int i = A; i <= B; i++) {
+                Sum += i;
+            }
+            System.out.println("fourteen: " + Sum);
+        } else {
+            System.out.println("fourteen: 'A' must be < than 'B'");
         }
-        System.out.println("fourteen: " + Sum);
     }
 
     public static void fifteen(int N) {
         int Mult = 1;
-        for (int i = 1; i <= N; i++) {
-            Mult *= i;
+        if (N > 0) {
+            for (int i = 1; i <= N; i++) {
+                Mult *= i;
+            }
+            System.out.println("fifteen: " + Mult);
+        } else {
+            System.out.println("fifteen: 'N' must be > 0");
         }
-        System.out.println("fifteen: " + Mult);
     }
 
-    public static void sixteen(int A, int B) {
-        int C = B;
-        while ((A - C) > B) {
-            C += B;
+    public static void sixteen(double A, double B) {
+        if (A > B) {
+            double C = B;
+            while ((A - C) >= B) {
+                C += B;
+            }
+            System.out.println("sixteen: " + (A - C));
+        } else {
+            System.out.println("sixteen 'A' must be > than 'B'");
         }
-        System.out.println("sixteen: " + (A - C));
     }
 
     public static void seventeen(int N) {
         int K = 1;
-        while (!((3 * K) > N)) {
-            K++;
+        if (N > 1) {
+            while (!((3 * K) > N)) {
+                K++;
+            }
+            System.out.println("seventeen: " + K);
+        } else {
+            System.out.println("seventeen: 'N' must be > 1");
         }
-        System.out.println("seventeen: " + K);
     }
 
     public static void eighteen(int N) {
         int D = 10;
-        System.out.print("eighteen: ");
-        while (N % D != 0) {
-            int T = N % D;
-            System.out.print(T + " ");
-            N = (N - T) / D;
+        if (N > 0) {
+            System.out.print("eighteen: ");
+            while (N % D != 0) {
+                int T = N % D;
+                System.out.print(T + " ");
+                N = (N - T) / D;
+            }
+            System.out.print("\n");
+        } else {
+            System.out.println("eighteen: 'N' must be > 0");
         }
-        System.out.print("\n");
     }
 
     public static void nineteen(int A, int B) {
+
+        if (A > B) {
+            System.out.println("nineteen: 'A' must be < 'B'");
+            return;
+        }
         System.out.print("nineteen: ");
+        int counter = 1;
         for (int i = A; i <= B; i++) {
-            for (int j = 0; j < i; j++) {
+            for (int j = 1; j <= counter; j++) {
                 System.out.print(i + " ");
             }
+            counter++;
         }
         System.out.print("\n");
     }
